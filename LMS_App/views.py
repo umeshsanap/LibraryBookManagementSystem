@@ -1,10 +1,10 @@
 from django.shortcuts import render
-
-# Create your views here.
 from LMS_App.models import Book
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+
+# Create your views here.
 
 
 @csrf_exempt
@@ -30,6 +30,7 @@ def add_book(request):
                 "error":"Wrong method choosed"
             }
         )
+        
         
 @csrf_exempt
 def update_book(request,id):
@@ -60,7 +61,6 @@ def update_book(request,id):
             }
         )
         
-        
 @csrf_exempt
 def delete_book(request,id):
     if request.method=="DELETE":
@@ -86,6 +86,7 @@ def delete_book(request,id):
                 "error":"you choose wrong method"
             }
         )
+           
             
 @csrf_exempt
 def search_book(request, title):
