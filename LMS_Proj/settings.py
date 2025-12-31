@@ -73,11 +73,15 @@ WSGI_APPLICATION = 'LMS_Proj.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+DATABASES = { 
+'default': { 
+'ENGINE': 'django.db.backends.postgresql', 
+'NAME': 'LBMS-DB', 
+'USER': 'postgres', 
+'PASSWORD': 'root', 
+'HOST': 'localhost', 
+'PORT': '5432',  
+} 
 }
 
 
@@ -115,4 +119,4 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'static/' 
