@@ -22,6 +22,7 @@ def Librarian_registration(request):
                 last_name=data.get("last_name"),
                 email=data.get("email"),
                 password=make_password(data.get("password")),
+                confirm_password=make_password(data.get("confirm_password")),
                 phone_number=data.get("phone_number"),
                 designation = data.get("designation"),
                 role = data.get("role"),
@@ -176,7 +177,7 @@ def delete_book(request,id):
 @csrf_exempt
 def search_book(request, title):
     try:
-        queryset = Book.objects.get(title=title )
+        queryset = Book.objects.get(title=title)
         return JsonResponse(
             {
                 "id":queryset.id,
@@ -197,4 +198,38 @@ def search_book(request, title):
                 "error":"Data not found..!"
             },
             status = 404
+        )
+        
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import Book
+
+@csrf_exempt
+def search_book_by_filter(request, title):
+    books = Book.objects.filter(title=title).values(
+        "id",
+        "title",
+        "author",
+        "quantity",
+        "total_copies",
+        "available_copies",
+        "price",
+        "status",
+        "publisher"
+    )
+
+    if books.exists():
+        return JsonResponse(
+            {
+                "count": books.count(),
+                "data": list(books)
+            },
+            status=200,
+            safe=False
+        )
+    else:
+        return JsonResponse(
+            {"error": "Data not found..!"},
+            status=404
         )
